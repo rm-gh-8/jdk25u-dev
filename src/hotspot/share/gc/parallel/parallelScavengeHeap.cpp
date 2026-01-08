@@ -160,17 +160,6 @@ void ParallelScavengeHeap::initialize_serviceability() {
 
 }
 
-void ParallelScavengeHeap::safepoint_synchronize_begin() {
-  if (UseStringDeduplication) {
-    SuspendibleThreadSet::synchronize();
-  }
-}
-
-void ParallelScavengeHeap::safepoint_synchronize_end() {
-  if (UseStringDeduplication) {
-    SuspendibleThreadSet::desynchronize();
-  }
-}
 class PSIsScavengable : public BoolObjectClosure {
   bool do_object_b(oop obj) {
     return ParallelScavengeHeap::heap()->is_in_young(obj);
