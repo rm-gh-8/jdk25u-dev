@@ -48,6 +48,7 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static com.sun.net.httpserver.HttpExchange.RSPBODY_EMPTY;
 import static java.net.http.HttpClient.Builder.NO_PROXY;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -105,10 +106,10 @@ public class ExchangeAttributeTest {
                 assertEquals("val", exchange.getAttribute("attr"));
                 exchange.setAttribute("attr", null);
                 assertNull(exchange.getAttribute("attr"));
-                exchange.sendResponseHeaders(200, -1);
+                exchange.sendResponseHeaders(200, RSPBODY_EMPTY);
             } catch (Throwable t) {
                 t.printStackTrace();
-                exchange.sendResponseHeaders(500, -1);
+                exchange.sendResponseHeaders(500, RSPBODY_EMPTY);
             }
         }
     }
