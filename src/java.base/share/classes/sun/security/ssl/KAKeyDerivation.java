@@ -234,7 +234,7 @@ public class KAKeyDerivation implements SSLKeyDerivation {
                     var decapsulator = kem.newDecapsulator(localPrivateKey);
                     sharedSecret = decapsulator.decapsulate(
                             keyshare, 0, decapsulator.secretSize(),
-                            "TlsPremasterSecret");
+                            "Generic");
                 } catch (IllegalArgumentException | InvalidKeyException |
                         DecapsulateException e) {
                     // Peer validation failure
@@ -252,7 +252,7 @@ public class KAKeyDerivation implements SSLKeyDerivation {
                 KeyAgreement ka = KeyAgreement.getInstance(algorithmName);
                 ka.init(localPrivateKey);
                 ka.doPhase(peerPublicKey, true);
-                sharedSecret = ka.generateSecret("TlsPremasterSecret");
+                sharedSecret = ka.generateSecret("Generic");
             }
 
             return deriveHandshakeSecret(type, sharedSecret);
